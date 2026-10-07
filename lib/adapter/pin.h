@@ -11,14 +11,6 @@ enum pin_mode {
   INPUT_MODE,
 };
 
-enum voltage_state {
-  RISING_STATE,
-  FALLING_STATE,
-  CHANGE_STATE,
-  ONLOW_STATE,
-  ONHIGH_STATE
-};
-
 enum pin_state { LOW_STATE, HIGH_STATE };
 
 typedef struct digital_pin digital_pin_t;
