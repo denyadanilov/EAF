@@ -5,4 +5,8 @@
 #define IRAM_LOCATED
 #endif
 
+#ifndef MILLISECONDS_IN_SECOND
+#define MILLISECONDS_IN_SECOND 1000
+#endif // MILLISECONDS_IN_SECOND
+
 #endif // UTILS_H

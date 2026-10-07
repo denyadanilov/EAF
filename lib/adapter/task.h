@@ -4,6 +4,10 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 enum result { SUCCESS, FAILURE };
 
 struct task_context {
@@ -16,5 +20,9 @@ typedef struct task_context task_context_t;
 
 result_t schedule_task(task_context_t *context, const char *task_name,
                        uint32_t stack_depth, uint8_t priority);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // SRC_ADAPTER_TASK_H

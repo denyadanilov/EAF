@@ -3,6 +3,10 @@
 
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 enum pin_mode {
   NONE,
   OUTPUT_MODE,
@@ -15,7 +19,6 @@ enum pin_state { LOW_STATE, HIGH_STATE };
 
 typedef struct digital_pin digital_pin_t;
 typedef enum pin_state pin_state_t;
-typedef enum voltage_state voltage_state_t;
 typedef enum pin_mode pin_mode_t;
 
 struct digital_pin {
@@ -26,5 +29,9 @@ struct digital_pin {
 };
 
 digital_pin_t get_digital_pin(uint8_t pin_index, pin_mode_t mode);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // SRC_ADAPTER_PIN_H
