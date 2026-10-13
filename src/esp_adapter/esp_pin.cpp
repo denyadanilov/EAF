@@ -6,7 +6,7 @@ static uint32_t pin_state_to_esp(pin_state state);
 static gpio_mode_t pin_mode_to_esp(pin_mode pin_mode);
 static gpio_pull_mode_t pull_mode_to_esp(pin_mode pin_mode);
 
-static pin get_pin(uint8_t pin_index, pin_mode mode) {
+pin get_pin(uint8_t pin_index, pin_mode mode) {
   return pin(pin_index, mode);
 }
 

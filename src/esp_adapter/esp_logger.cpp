@@ -1,10 +1,10 @@
-#include "adapter/logger.h"
-#include "esp_log.h"
+#include "adapter/logger.hpp"
 #include <stdarg.h>
+#include <stdio.h>
 
 namespace eaf {
 
-static void log_message(const char *format, ...) {
+void log_message(const char *format, ...) {
   va_list args;
   va_start(args, format);
   vprintf(format, args);

@@ -1,6 +1,18 @@
-set(srcs "esp_adapter/pin.cpp" "esp_adapter/interrupt.cpp" "esp_adapter/esp_timer.cpp" "esp_adapter/esp_timer_builder.cpp" "esp_adapter/logger.cpp")
-set(includes "include")
-
-
-idf_component_register(SRCS ${srcs}
-                       INCLUDE_DIRS ${includes})
+idf_component_register(
+    SRCS
+        "esp_adapter/esp_interrupt.cpp"
+        "esp_adapter/esp_logger.cpp"
+        "esp_adapter/esp_pin.cpp"
+        "esp_adapter/esp_task.cpp"
+        "esp_adapter/esp_time.cpp"
+        "esp_adapter/esp_timer.cpp"
+        "esp_adapter/esp_timer_builder.cpp"
+        "esp_adapter/esp_utils.cpp"
+    INCLUDE_DIRS
+        "../include"
+    PRIV_REQUIRES
+        esp_driver_gpio
+        esp_driver_gptimer
+        freertos
+        log
+)

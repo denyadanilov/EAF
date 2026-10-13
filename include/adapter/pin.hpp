@@ -14,8 +14,6 @@ enum class pin_mode {
 
 enum class pin_state { LOW_STATE, HIGH_STATE };
 
-static pin get_pin(uint8_t pin_index, pin_mode mode);
-
 class pin {
 public:
   pin(uint8_t pin_index, pin_mode mode = pin_mode::NONE);
@@ -30,4 +28,6 @@ public:
 private:
   uint8_t pin_index;
 };
+
+pin get_pin(uint8_t pin_index, pin_mode mode);
 } // namespace eaf

@@ -1,7 +1,8 @@
 #include "adapter/interrupt.hpp"
 #include "driver/gpio.h"
 #include "esp_log.h"
-#include "interrupt.h"
+
+#define TAG "ESP_INTERRUPT"
 
 namespace eaf {
 static void attach_interrupt(uint8_t pin_index, void (*isr)(),
