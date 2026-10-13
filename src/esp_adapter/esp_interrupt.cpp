@@ -5,8 +5,9 @@
 #define TAG "ESP_INTERRUPT"
 
 namespace eaf {
-static void attach_interrupt(uint8_t pin_index, void (*isr)(),
-                             voltage_state state) {
+static gpio_int_type_t voltage_state_to_esp(voltage_state state);
+
+void attach_interrupt(uint8_t pin_index, void (*isr)(), voltage_state state) {
   if (pin_index >= GPIO_NUM_MAX) {
     ESP_LOGE(TAG, "Invalid GPIO pin_index: %d", pin_index);
     return;
