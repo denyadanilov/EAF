@@ -14,6 +14,7 @@ timer_builder *timer_builder::with_config_in_milliseconds() {
       .direction = GPTIMER_COUNT_UP,
       .resolution_hz = 1000000,
       .intr_priority = 0,
+      .flags = {},
   };
 
   timer_config_ = timer_config;
@@ -27,6 +28,7 @@ timer_builder *timer_builder::with_config_in_seconds() {
       .direction = GPTIMER_COUNT_UP,
       .resolution_hz = 1000000,
       .intr_priority = 0,
+      .flags = {},
   };
 
   timer_config_ = timer_config;
