@@ -30,8 +30,7 @@ esp_analog_pin::~esp_analog_pin() {
   }
 #if ADC_CALI_SCHEME_CURVE_FITTING_SUPPORTED
   if (do_calibration_chan) {
-    ESP_ERROR_CHECK(
-        adc_cali_delete_scheme_curve_fitting(adc_cali_chan_handle));
+    ESP_ERROR_CHECK(adc_cali_delete_scheme_curve_fitting(adc_cali_chan_handle));
   }
 #endif
 }
@@ -42,9 +41,8 @@ int esp_analog_pin::read() {
   if (do_calibration_chan) {
     ESP_ERROR_CHECK(adc_cali_raw_to_voltage(adc_cali_chan_handle, raw_result,
                                             &calibrated_voltage));
-    result = static_cast<int>(
-        static_cast<int64_t>(calibrated_voltage) * MAX_ADC_VALUE /
-        MAX_PIN_VOLTAGE);
+    result = static_cast<int>(static_cast<int64_t>(calibrated_voltage) *
+                              MAX_ADC_VALUE / MAX_PIN_VOLTAGE);
   } else {
     result = raw_result;
   }
@@ -63,8 +61,7 @@ adc_unit_t esp_analog_pin::adc_to_unit(adc converter_id) {
   }
 }
 
-adc_channel_t
-esp_analog_pin::channel_to_adc_channel(channel channel_id) {
+adc_channel_t esp_analog_pin::channel_to_adc_channel(channel channel_id) {
   switch (channel_id) {
   case channel::CHANNEL0:
     return ADC_CHANNEL_0;
@@ -91,9 +88,10 @@ esp_analog_pin::channel_to_adc_channel(channel channel_id) {
   }
 }
 
-void esp_analog_pin::configure_by_mode(
-    adc_unit_t *adc_unit, adc_channel_t *adc_channel, adc_mode mode,
-    adc_oneshot_unit_handle_t *adc_handle) {
+void esp_analog_pin::configure_by_mode(adc_unit_t *adc_unit,
+                                       adc_channel_t *adc_channel,
+                                       adc_mode mode,
+                                       adc_oneshot_unit_handle_t *adc_handle) {
   switch (mode) {
   case adc_mode::ONE_SHOT:
     configure_one_shot(adc_unit, adc_channel, adc_handle);
@@ -103,27 +101,26 @@ void esp_analog_pin::configure_by_mode(
   }
 }
 
-void
-esp_analog_pin::configure_one_shot(adc_unit_t *adc_unit,
-                                   adc_channel_t *adc_channel,
-                                   adc_oneshot_unit_handle_t *adc_handle) {
+void esp_analog_pin::configure_one_shot(adc_unit_t *adc_unit,
+                                        adc_channel_t *adc_channel,
+                                        adc_oneshot_unit_handle_t *adc_handle) {
   adc_oneshot_unit_init_cfg_t init_config = {
       .unit_id = *adc_unit,
+      .clk_src = ADC_DIGI_CLK_SRC_DEFAULT,
+      .ulp_mode = ADC_ULP_MODE_DISABLE,
   };
   ESP_ERROR_CHECK(adc_oneshot_new_unit(&init_config, adc_handle));
 
-  adc_oneshot_chan_cfg_t config = {
-      .atten = ADC_ATTEN_DB_12,
-      .bitwidth = ADC_BITWIDTH_DEFAULT,
-  };
+  adc_oneshot_chan_cfg_t config = {.atten = ADC_ATTEN_DB_12,
+                                   .bitwidth = ADC_BITWIDTH_DEFAULT};
   ESP_ERROR_CHECK(
       adc_oneshot_config_channel(*adc_handle, *adc_channel, &config));
 }
 
-bool
-esp_analog_pin::adc_calibration_init(adc_unit_t unit, adc_channel_t channel,
-                                     adc_atten_t atten,
-                                     adc_cali_handle_t *out_handle) {
+bool esp_analog_pin::adc_calibration_init(adc_unit_t unit,
+                                          adc_channel_t channel,
+                                          adc_atten_t atten,
+                                          adc_cali_handle_t *out_handle) {
   adc_cali_handle_t handle = NULL;
   esp_err_t ret = ESP_FAIL;
   bool calibrated = false;
