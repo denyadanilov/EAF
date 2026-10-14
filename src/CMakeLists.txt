@@ -1,8 +1,9 @@
 idf_component_register(
     SRCS
+        "esp_adapter/esp_analog_pin.cpp"
         "esp_adapter/esp_interrupt.cpp"
         "esp_adapter/esp_logger.cpp"
-        "esp_adapter/esp_pin.cpp"
+        "esp_adapter/esp_digital_pin.cpp"
         "esp_adapter/esp_task.cpp"
         "esp_adapter/esp_time.cpp"
         "esp_adapter/esp_timer.cpp"
@@ -13,6 +14,7 @@ idf_component_register(
     PRIV_REQUIRES
         esp_driver_gpio
         esp_driver_gptimer
+        esp_adc
         freertos
         log
 )

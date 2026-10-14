@@ -1,4 +1,4 @@
-#include "adapter/pin.hpp"
+#include "adapter/digital_pin.hpp"
 #include "driver/gpio.h"
 
 namespace eaf {
@@ -6,11 +6,12 @@ static uint32_t pin_state_to_esp(pin_state state);
 static gpio_mode_t pin_mode_to_esp(pin_mode pin_mode);
 static gpio_pull_mode_t pull_mode_to_esp(pin_mode pin_mode);
 
-pin get_pin(uint8_t pin_index, pin_mode mode) {
-  return pin(pin_index, mode);
+digital_pin get_digital_pin(uint8_t pin_index, pin_mode mode) {
+  return digital_pin(pin_index, mode);
 }
 
-pin::pin(uint8_t pin_index, pin_mode mode) : pin_index(pin_index) {
+digital_pin::digital_pin(uint8_t pin_index, pin_mode mode)
+    : pin_index(pin_index) {
   auto pin_num = static_cast<gpio_num_t>(pin_index);
 
   gpio_reset_pin(pin_num);
@@ -18,19 +19,19 @@ pin::pin(uint8_t pin_index, pin_mode mode) : pin_index(pin_index) {
   gpio_set_pull_mode(pin_num, pull_mode_to_esp(mode));
 }
 
-void pin::set_high() {
+void digital_pin::set_high() {
   uint32_t state = pin_state_to_esp(pin_state::HIGH_STATE);
   auto pin_num = static_cast<gpio_num_t>(pin_index);
   gpio_set_level(pin_num, state);
 }
 
-void pin::set_low() {
+void digital_pin::set_low() {
   uint32_t state = pin_state_to_esp(pin_state::LOW_STATE);
   auto pin_num = static_cast<gpio_num_t>(pin_index);
   gpio_set_level(pin_num, state);
 }
 
-pin_state pin::get_state() {
+pin_state digital_pin::get_state() {
   // Implementation for getting the pin state
   return pin_state::LOW_STATE; // Placeholder implementation
 }
